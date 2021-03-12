@@ -10,6 +10,9 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
 {
     public class Machine
     {
+        [BsonElement("SerialNumber")]
+        public string SerialNumber { get; set; }
+
         [BsonElement("Number")]
         public int Number { get; set; }
 
@@ -18,6 +21,5 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
 
         [BsonElement("Brand")]
         public string Brand { get; set; }
-
     }
 }

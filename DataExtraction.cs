@@ -13,8 +13,10 @@ namespace Kensa.Correlation.Mongo
         public DataExtraction()
         {
             dbClient = new MongoClient(Properties.MONGO_CONNECTION_STRING);
+            MongoDB = dbClient.GetDatabase(Properties.MONGO_DATABASE_STRING);
         }
         MongoClient dbClient = null;
+        IMongoDatabase MongoDB = null;
 
 
         #region Gauge Block Extraction
@@ -27,9 +29,7 @@ namespace Kensa.Correlation.Mongo
         {
             TestResult testResult = new TestResult();
 
-            IMongoDatabase Database = dbClient.GetDatabase(Properties.MONGO_DATABASE_STRING);
-
-            var list = Database.GetCollection<TestResult>(Properties.MONGO_RESULTS_GAUGEBLOCK_COLLECTION);
+            var list = MongoDB.GetCollection<TestResult>(Properties.MONGO_RESULTS_GAUGEBLOCK_COLLECTION);
             testResult = list.Find(x => x.TestNumber == testNumber).FirstOrDefault();
 
             return testResult;
@@ -65,9 +65,7 @@ namespace Kensa.Correlation.Mongo
 
             TestResult testResult = new TestResult();
 
-            IMongoDatabase Database = dbClient.GetDatabase(Properties.MONGO_DATABASE_STRING);
-
-            var list = Database.GetCollection<TestResult>(Properties.MONGO_RESULTS_RINGGAUGE_COLLECTION);
+            var list = MongoDB.GetCollection<TestResult>(Properties.MONGO_RESULTS_RINGGAUGE_COLLECTION);
             testResult = list.Find(x => x.TestNumber == testNumber).FirstOrDefault();
 
             return testResult;
@@ -87,6 +85,22 @@ namespace Kensa.Correlation.Mongo
             }
 
             return testResults;
+        }
+        #endregion
+
+        #region Assembly Extraction
+
+        #endregion
+
+        #region Machine Info
+        public Machine GetMachineInfo(string serialNumber)
+        {
+            Machine machine = new Machine();
+
+            var list = MongoDB.GetCollection<Machine>(Properties.MONGO_MACHINES_COLLECTION);
+            machine = list.Find(x => x.SerialNumber == serialNumber).FirstOrDefault();
+
+            return machine;
         }
         #endregion
     }

@@ -35,7 +35,9 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
 
                 string name = data[10];
                 if (name == "0") { continue; }
-                double value = Convert.ToDouble(data[3]);
+                string valueString = data[3];
+                if(valueString == "") { i++; continue; }
+                double value = Convert.ToDouble(valueString);
 
                 characteristics[i] = new Characteristic { Name = name, Measured = new double[ResultFiles.Count] };
  
@@ -63,8 +65,8 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
                         value = Convert.ToDouble(data[3]);
                     }
                     catch { }
-
-                    characteristics[i].Measured[a] = value;
+                    try { characteristics[i].Measured[a] = value; } catch { }
+                    
                     i++;
                 }
             }
