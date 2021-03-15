@@ -13,60 +13,37 @@ using MongoDB.Bson.Serialization.Serializers;
 namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
 {
     [BsonIgnoreExtraElements]
-    public class TestResult
+    public class CorrelationResult : InspectionInfo
     {
-        public const double FAKE_DATA_FREQUENCY = 5;
-        public const string UNREFERENCED = "UNREFERENCED";
-        public const double dUNREFERENCED = -1.0;
-        public const int nUNREFERENCED = -1;
-
-
-
-        //Collection
-        //[BsonId]
-        //public ObjectId Id { get; set; }
 
         [BsonElement("TestNumber")]
         public int TestNumber { get; set; }
-
-        [BsonElement("StartTime")]
-        public DateTime StartTime { get; set; }
-
-        [BsonElement("Machine")]
-        public Machine MachineInfo { get; set; }
         
         [BsonElement("SerialNumber")]
         public string SerialNumber { get; set; }
 
-        [BsonElement("Operator")]
-        public string Operator { get; set; }
-
-        [BsonElement("PIP")]
-        public PartInspectionPlan PIP { get; set; }
-
         [BsonElement("TestType")]
         public string TestType { get; set; }
-
-        [BsonElement("Measured")]
-        public Characteristic[] Characteristics { get; set; }
-
-        [BsonElement("Times")]
-        public RunDurations RunDurations { get; set; }
-
-        [BsonElement("Tempuratures")]
-        public Tempuratures Tempuratures { get; set; }
 
 
         /// <summary>
         /// Default contr
         /// </summary>
-        public TestResult()
+        public CorrelationResult()
         {
 
         }
+        public CorrelationResult(int testNumber)
+        {
+            TestNumber = testNumber;
+        }
 
-
-        internal static TestResult BuildAssembly(int testNumber)
+        /// <summary>
+        /// Build Test Result from ToolNet text files
+        /// </summary>
+        /// <param name="testNumber"></param>
+        /// <returns></returns>
+        internal static CorrelationResult BuildAssembly(int testNumber)
         {
             TestInfo pointCloudInfo = Assembly.PointCloudInfo.TestInfos(testNumber);
 
@@ -85,11 +62,14 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
             DirectoryInfo dir = new DirectoryInfo(folder);
             FileInfo[] files = dir.GetFiles();
             List<FileInfo> testFiles = files.Where(x => x.Name.Contains("Correlation_" + serialNumber + "." + testNumber + ".")).ToList();
-            Characteristic[] characteristics = Characteristic.Extract(testFiles);
 
 
+            if (testFiles.Count() == 0)
+            { return new CorrelationResult(testNumber); }
+
+
+            Characteristic[] characteristics = Characteristic.Extract(testFiles); 
             RunDurations runDurations = new RunDurations(testFiles.Count);
-
             Tempuratures tempuratures = new Tempuratures(testFiles.Count);
 
             folder = @"\\dwffs08\ToolNet\ZeroTouch\Correlation\DataFiles\MachineOutputs"; //TODO move to MachineFiles\MachineOutputs\CorrelationAssembly
@@ -106,7 +86,9 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
                 XmlNode runInfo = xml.SelectSingleNode("PartRun");
 
                 #region Time
-                string timeFull = runInfo.SelectSingleNode("StartTime").InnerText;
+                string timeFull = "";
+                try { timeFull = runInfo.SelectSingleNode("StartTime").InnerText; } catch { continue; }
+                 
                 string dateString = timeFull.Split('T')[0];
                 string timeString = timeFull.Split('T')[1];
                 //Set Date
@@ -154,17 +136,33 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
                 runDurations.RunFinish[i] = edateTime;
 
                 tempuratures.Laser[i] = Convert.ToDouble(runInfo.SelectSingleNode("DLMTemperature").InnerText);
-                tempuratures.Bridge1[i] = Convert.ToDouble(runInfo.SelectSingleNode("Bridge1Temperature").InnerText);
-                tempuratures.Bridge2[i] = Convert.ToDouble(runInfo.SelectSingleNode("Bridge2Temperature").InnerText);
-                tempuratures.Granite[i] = Convert.ToDouble(runInfo.SelectSingleNode("GraniteTemperature").InnerText);
-                tempuratures.Part[i] = Convert.ToDouble(runInfo.SelectSingleNode("PartTemperature").InnerText);
+                if(runInfo.SelectSingleNode("Bridge1Temperature").InnerText == "-INF")
+                {
+                    tempuratures.Bridge1[i] = 0;
+                }
+                else { tempuratures.Bridge1[i] = Convert.ToDouble(runInfo.SelectSingleNode("Bridge1Temperature").InnerText); }
+                if (runInfo.SelectSingleNode("Bridge2Temperature").InnerText == "-INF")
+                {
+                    tempuratures.Bridge2[i] = 0;
+                }
+                else { tempuratures.Bridge2[i] = Convert.ToDouble(runInfo.SelectSingleNode("Bridge2Temperature").InnerText); }
+                if (runInfo.SelectSingleNode("GraniteTemperature").InnerText == "-INF")
+                {
+                    tempuratures.Granite[i] = 0;
+                }
+                else { tempuratures.Granite[i] = Convert.ToDouble(runInfo.SelectSingleNode("GraniteTemperature").InnerText); }
+                if (runInfo.SelectSingleNode("PartTemperature").InnerText == "-INF")
+                {
+                    tempuratures.Part[i] = 0;
+                }
+                else { tempuratures.Part[i] = Convert.ToDouble(runInfo.SelectSingleNode("PartTemperature").InnerText); }
 
                 i++;
             }
 
 
 
-            TestResult testResult = new TestResult()
+            CorrelationResult testResult = new CorrelationResult()
             {
                 TestNumber = testNumber,
 
@@ -189,8 +187,12 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
             return testResult;
         }
 
-
-        internal static TestResult BuildGaugeBlock(int testNumber) 
+        /// <summary>
+        /// Build Test Result from ToolNet text files
+        /// </summary>
+        /// <param name="testNumber"></param>
+        /// <returns></returns>
+        internal static CorrelationResult BuildGaugeBlock(int testNumber) 
         { 
             TestInfo pointCloudInfo = GaugeBlock.PointCloudInfo.TestInfos(testNumber);
 
@@ -287,7 +289,7 @@ namespace Kensa.Correlation.Mongo.DATA_COLLECTIONS
 
 
 
-            TestResult testResult = new TestResult()
+            CorrelationResult testResult = new CorrelationResult()
             {
                 TestNumber = testNumber,
 

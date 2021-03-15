@@ -45,6 +45,9 @@
     <Reference Include="MongoDB.Driver.Core, Version=2.12.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\repo\ZeroTouchCorrelation\packages\MongoDB.Driver.Core.2.12.0\lib\net452\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Driver.GridFS, Version=2.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\repo\ZeroTouchCorrelation\packages\MongoDB.Driver.GridFS.2.12.0\lib\net452\MongoDB.Driver.GridFS.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.LibMongocrypt, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\repo\ZeroTouchCorrelation\packages\MongoDB.LibMongocrypt.1.2.0\lib\net452\MongoDB.LibMongocrypt.dll</HintPath>
     </Reference>
@@ -110,12 +113,15 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DATA COLLECTIONS\Characteristic.cs" />
+    <Compile Include="DATA COLLECTIONS\InspectionResult.cs" />
     <Compile Include="DATA COLLECTIONS\Machine.cs" />
+    <Compile Include="DATA COLLECTIONS\Part.cs" />
     <Compile Include="DATA COLLECTIONS\PartInspectionPlan.cs" />
     <Compile Include="DATA COLLECTIONS\RunDurations.cs" />
     <Compile Include="DATA COLLECTIONS\RunProperties.cs" />
     <Compile Include="DATA COLLECTIONS\Tempuratures.cs" />
-    <Compile Include="DATA COLLECTIONS\TestResult.cs" />
+    <Compile Include="DATA COLLECTIONS\InspectionInfo.cs" />
+    <Compile Include="DATA COLLECTIONS\CorrelationResult.cs" />
     <Compile Include="DataExtraction.cs" />
     <Compile Include="DataInsertion.cs" />
     <Compile Include="Properties.cs" />
@@ -134,6 +140,7 @@
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
     <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
     <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
+    <Content Include="DATA COLLECTIONS\Data_Collection_Info.txt" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <ItemGroup>

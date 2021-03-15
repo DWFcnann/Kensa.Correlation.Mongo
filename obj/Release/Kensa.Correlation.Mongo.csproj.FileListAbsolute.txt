@@ -23,3 +23,16 @@ I:\Software\DLLs\Kensa.Correlation.Mongo\obj\Release\Kensa.Correlation.Mongo.csp
 I:\Software\DLLs\Kensa.Correlation.Mongo\obj\Release\Kensa.Correlation.Mongo.csproj.CopyComplete
 I:\Software\DLLs\Kensa.Correlation.Mongo\obj\Release\Kensa.Correlation.Mongo.dll
 I:\Software\DLLs\Kensa.Correlation.Mongo\obj\Release\Kensa.Correlation.Mongo.pdb
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\Kensa.Correlation.dll
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.WinForms.dll
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\Statistics.dll
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.Wpf.dll
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.dll
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\Kensa.Correlation.pdb
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.WinForms.pdb
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.WinForms.xml
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\Statistics.pdb
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.Wpf.pdb
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.Wpf.xml
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.pdb
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Release\LiveCharts.xml

@@ -36,3 +36,5 @@ I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Debug\LiveCharts.Wpf.pdb
 I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Debug\LiveCharts.Wpf.xml
 I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Debug\LiveCharts.pdb
 I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Debug\LiveCharts.xml
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Debug\MongoDB.Driver.GridFS.dll
+I:\Software\DLLs\Kensa.Correlation.Mongo\bin\Debug\MongoDB.Driver.GridFS.xml

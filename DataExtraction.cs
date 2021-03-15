@@ -25,11 +25,11 @@ namespace Kensa.Correlation.Mongo
         /// </summary>
         /// <param name="TestNumber"></param>
         /// <returns></returns>
-        public TestResult GetGaugeBlockResults(int testNumber)
+        public CorrelationResult GetGaugeBlockResults(int testNumber)
         {
-            TestResult testResult = new TestResult();
+            CorrelationResult testResult = new CorrelationResult();
 
-            var list = MongoDB.GetCollection<TestResult>(Properties.MONGO_RESULTS_GAUGEBLOCK_COLLECTION);
+            var list = MongoDB.GetCollection<CorrelationResult>(Properties.MONGO_RESULTS_GAUGEBLOCK_COLLECTION);
             testResult = list.Find(x => x.TestNumber == testNumber).FirstOrDefault();
 
             return testResult;
@@ -40,9 +40,9 @@ namespace Kensa.Correlation.Mongo
         /// </summary>
         /// <param name="testNumbers"></param>
         /// <returns></returns>
-        public List<TestResult> GetGaugeBlockResults(List<int> testNumbers)
+        public List<CorrelationResult> GetGaugeBlockResults(List<int> testNumbers)
         {
-            List<TestResult> testResults = new List<TestResult>();
+            List<CorrelationResult> testResults = new List<CorrelationResult>();
 
             foreach (int testNumber in testNumbers)
             {
@@ -59,13 +59,13 @@ namespace Kensa.Correlation.Mongo
         /// </summary>
         /// <param name="TestNumber"></param>
         /// <returns></returns>
-        public TestResult GetRingGaugeResults(int testNumber)
+        public CorrelationResult GetRingGaugeResults(int testNumber)
         {
             throw new NotImplementedException();
 
-            TestResult testResult = new TestResult();
+            CorrelationResult testResult = new CorrelationResult();
 
-            var list = MongoDB.GetCollection<TestResult>(Properties.MONGO_RESULTS_RINGGAUGE_COLLECTION);
+            var list = MongoDB.GetCollection<CorrelationResult>(Properties.MONGO_RESULTS_RINGGAUGE_COLLECTION);
             testResult = list.Find(x => x.TestNumber == testNumber).FirstOrDefault();
 
             return testResult;
@@ -75,9 +75,9 @@ namespace Kensa.Correlation.Mongo
         /// </summary>
         /// <param name="testNumbers"></param>
         /// <returns></returns>
-        public List<TestResult> GetRingGaugeResults(List<int> testNumbers)
+        public List<CorrelationResult> GetRingGaugeResults(List<int> testNumbers)
         {
-            List<TestResult> testResults = new List<TestResult>();
+            List<CorrelationResult> testResults = new List<CorrelationResult>();
 
             foreach (int testNumber in testNumbers)
             {

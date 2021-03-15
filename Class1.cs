@@ -41,29 +41,29 @@ namespace Kensa.Correlation.Mongo
             }
             IMongoDatabase db = dbClient.GetDatabase(Properties.MONGO_DATABASE_STRING);
 
-            var list = db.GetCollection<TestResult>(Properties.MONGO_RESULTS_GAUGEBLOCK_COLLECTION);
+            var list = db.GetCollection<CorrelationResult>(Properties.MONGO_RESULTS_GAUGEBLOCK_COLLECTION);
             //var docs = list.Find(new BsonDocument()).ToList();
 
-            TestResult onlyTest = list.Find(x => x.TestNumber == 13).FirstOrDefault();
+            CorrelationResult onlyTest = list.Find(x => x.TestNumber == 13).FirstOrDefault();
             
 
 
 
             string[] info = File.ReadAllLines(@"\\dwffs08\ToolNet\ZeroTouch\Correlation\DataFiles\TestInfo\GaugeBlock_TestInfo.csv");
             int lastTest = info.Length - 1;
-            list.InsertOne(TestResult.Build(28));
-            list.InsertOne(TestResult.Build(29));
+            list.InsertOne(CorrelationResult.BuildGaugeBlock(28));
+            list.InsertOne(CorrelationResult.BuildGaugeBlock(29));
             
             for (int i = 25; i <= lastTest; i++)
             {
-                TestResult testResult = TestResult.Build(i);
+                CorrelationResult testResult = CorrelationResult.BuildGaugeBlock(i);
 
                 try
                 {
                     list.InsertOne(testResult);
                 }
                 catch {
-                    FilterDefinition<TestResult> filterDefinition = Builders<TestResult>.Filter.Eq("TestNumber", i);
+                    FilterDefinition<CorrelationResult> filterDefinition = Builders<CorrelationResult>.Filter.Eq("TestNumber", i);
                     list.ReplaceOne(filterDefinition, testResult); }
             }
 
