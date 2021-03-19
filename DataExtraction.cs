@@ -18,6 +18,34 @@ namespace Kensa.Correlation.Mongo
         MongoClient dbClient = null;
         IMongoDatabase MongoDB = null;
 
+        public CorrelationResult GetResults(int testNumber, string testType)
+        {
+            CorrelationResult testResult = new CorrelationResult();
+
+            string collection;
+            switch (testType)
+            {
+                case "Assembly":
+                    collection = Properties.MONGO_RESULTS_ASSEMBLY_COLLECTION;
+                    break;
+                case "GaugeBlock":
+                    collection = Properties.MONGO_RESULTS_GAUGEBLOCK_COLLECTION;
+                    break;
+                case "RingGauge":
+                    collection = Properties.MONGO_RESULTS_RINGGAUGE_COLLECTION;
+                    break;
+                case "Plane":
+                    collection = Properties.MONGO_RESULTS_PLANE_COLLECTION;
+                    break;
+                default:
+                    throw new Exception(testType + " is not a known type.");
+            }
+
+            var list = MongoDB.GetCollection<CorrelationResult>(collection);
+            testResult = list.Find(x => x.TestNumber == testNumber).FirstOrDefault();
+
+            return testResult;
+        }
 
         #region Gauge Block Extraction
         /// <summary>
