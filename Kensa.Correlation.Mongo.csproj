@@ -117,6 +117,8 @@
     <Compile Include="DATA COLLECTIONS\Machine.cs" />
     <Compile Include="DATA COLLECTIONS\Part.cs" />
     <Compile Include="DATA COLLECTIONS\PartInspectionPlan.cs" />
+    <Compile Include="DATA COLLECTIONS\PasInfo.cs" />
+    <Compile Include="DATA COLLECTIONS\PasResult.cs" />
     <Compile Include="DATA COLLECTIONS\RunDurations.cs" />
     <Compile Include="DATA COLLECTIONS\RunProperties.cs" />
     <Compile Include="DATA COLLECTIONS\Tempuratures.cs" />

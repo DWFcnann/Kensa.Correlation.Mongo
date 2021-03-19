@@ -1,3 +1,4 @@
 ﻿InspectionInfo = common data that ALL ZeroTouch inspection runs need/use/create
 CorrelationResult = Information that only correlation runs use, TestNumber, RunType, etc
 InspectionResult = information specific to a run that would be producted by a customer in 'real world' situations
+PasResult = information for PASs 

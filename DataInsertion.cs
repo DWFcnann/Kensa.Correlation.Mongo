@@ -23,9 +23,9 @@ namespace Kensa.Correlation.Mongo
         MongoClient dbClient = null;
         IMongoDatabase MongoDB = null;
 
-        public void AddGaugeBlockResult(int TestNumber)
+        public void AddGaugeBlockResult(int testNumber)
         {
-            AddGaugeBlockResult(CorrelationResult.BuildGaugeBlock(TestNumber));                                           //Build test result from text files, then add to database
+            AddGaugeBlockResult(CorrelationResult.BuildGaugeBlock(testNumber));                                           //Build test result from text files, then add to database
         }
 
         public void AddGaugeBlockResult(CorrelationResult testResult)
@@ -49,9 +49,9 @@ namespace Kensa.Correlation.Mongo
 
             //MessageBox.Show("Test Result Added");
         }
-        public void AddAssemblyResult(int TestNumber)
+        public void AddAssemblyResult(int testNumber)
         {
-            AddAssemblyResult(CorrelationResult.BuildAssembly(TestNumber));                                           //Build test result from text files, then add to database
+            AddAssemblyResult(CorrelationResult.BuildAssembly(testNumber));                                           //Build test result from text files, then add to database
         }
 
         public void AddAssemblyResult(CorrelationResult testResult)
@@ -73,6 +73,27 @@ namespace Kensa.Correlation.Mongo
             //MessageBox.Show("Test Result Added");
         }
 
+
+        public void AddPlaneResult(int testNumber)
+        {
+            AddPlaneResult(CorrelationResult.BuildPlane(testNumber));
+        }
+        public void AddPlaneResult(CorrelationResult testResult)
+        {
+            var list = MongoDB.GetCollection<CorrelationResult>(Properties.MONGO_RESULTS_PLANE_COLLECTION);
+
+            if (list.Find(x => x.TestNumber == testResult.TestNumber).CountDocuments() != 0)
+            {
+                CorrelationResult oldTestResult = list.Find(x => x.TestNumber == testResult.TestNumber).First();
+                if (!UpdateResult("Plane", testResult, oldTestResult)) { return; }
+                else
+                {
+                    FilterDefinition<CorrelationResult> filterDefinition = Builders<CorrelationResult>.Filter.Eq("TestNumber", testResult.TestNumber);
+                    list.ReplaceOne(filterDefinition, testResult);
+                }
+            }
+            else { list.InsertOne(testResult); }
+        }
 
         #region Utilities
         static bool UpdateResult(string testType, CorrelationResult newTestResult, CorrelationResult oldTestResult)

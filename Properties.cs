@@ -14,7 +14,8 @@ namespace Kensa.Correlation.Mongo
 
         internal const string MONGO_RESULTS_ASSEMBLY_COLLECTION = "Results_Assembly";                           //
         internal const string MONGO_RESULTS_GAUGEBLOCK_COLLECTION = "Results_GaugeBlock";                       //
-        internal const string MONGO_RESULTS_RINGGAUGE_COLLECTION = "Results_RingGauge";                         //   
+        internal const string MONGO_RESULTS_RINGGAUGE_COLLECTION = "Results_RingGauge";                         //  
+        internal const string MONGO_RESULTS_PLANE_COLLECTION = "Results_Plane";                                 //   
 
         internal const string MONGO_CATALOG_ASSEMBLY_COLLECTION = "Catalog_Assembly";                           //
         internal const string MONGO_CATALOG_GAUGEBLOCK_COLLECTION = "Catalog_GaugeBlock";                       //
